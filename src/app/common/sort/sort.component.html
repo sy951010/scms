@@ -1,0 +1,26 @@
+<button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="openSortModal()" id="sort">
+<span class="sortIcon">
+    <p><i class="upDown anticon anticon-caret-up"></i></p>
+    <p><i class="upDown anticon anticon-caret-down"></i></p>
+</span>
+<span class="sortText">排序</span>
+</button>
+<nz-modal [nzVisible]="sortModalVisible" [nzTitle]="'排序'" [nzContent]="sortModalContent" (nzOnOk)="confirmModalSort($event)"
+(nzOnCancel)="closeModalSort()">
+    <ng-template #sortModalContent>
+        <span>排序条件：</span>
+        <nz-select style="width: 300px;" [(ngModel)]="selectedOption1">
+            <nz-option *ngFor="let option of sortList" [nzLabel]="option.label" [nzValue]="option">
+                <ng-template #nzOptionTemplate><i class="anticon" [ngClass]="'anticon-'+option.label"></i> {{option.label}}</ng-template>
+            </nz-option>
+        </nz-select>
+        <br>
+        <br>
+        <span>排序方式：</span>
+        <nz-select style="width: 300px;" [(ngModel)]="selectedOption2">
+            <nz-option *ngFor="let option of sortType" [nzLabel]="option.label" [nzValue]="option">
+                <ng-template #nzOptionTemplate><i class="anticon" [ngClass]="'anticon-'+option.label"></i> {{option.label}}</ng-template>
+            </nz-option>
+        </nz-select>
+    </ng-template>
+</nz-modal>

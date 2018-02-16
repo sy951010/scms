@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('scms App', () => {
+describe('bg-system App', () => {
   let page: AppPage;
 
   beforeEach(() => {

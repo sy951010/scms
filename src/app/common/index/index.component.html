@@ -1,0 +1,43 @@
+<nz-layout class="body">
+  <nz-header class="head">
+      <div  class="head_top">
+        <h1>Share v4.4.0</h1>
+      </div>
+      <div  class="head_top">
+        <nz-dropdown>
+          <button nz-button nz-dropdown>
+            <i class="anticon anticon-user"></i>
+            <i class="anticon anticon-down"></i>
+          </button>
+          <ul nz-menu >
+            <li nz-menu-item>
+              <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/"><i class="anticon anticon-tool" style="margin-right:10px"></i>修改密码</a>
+            </li>
+            <li nz-menu-item>
+              <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/"><i class="anticon anticon-logout" style="margin-right:10px"></i>退出</a>
+            </li>
+          </ul>
+        </nz-dropdown>
+    </div>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed">
+      <ul nz-menu class="menu" [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
+        <li nz-submenu *ngFor="let item of list" [nzOpen]='name==item.name' (nzOpenChange)=change(item.name)>
+          <span title>
+            <i class="anticon {{ item.icon?item.icon:'anticon-user' }}"></i>
+            <span class="nav-text">{{item.title}}</span>
+          </span>
+          <ul class="obj">
+            <li nz-menu-item *ngFor="let item2 of item.children" [routerLink]="item2.link" [nzSelected]=select(item2.link)>{{item2.title}}</li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-content class="childview">
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

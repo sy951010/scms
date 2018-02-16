@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "scms"
+    "name": "bg-system"
   },
   "apps": [
     {
@@ -19,9 +19,13 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.less"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/echarts/dist/echarts.min.js",
+        "../node_modules/echarts/map/js/china.js",
+        "../node_modules/echarts/dist/extension/bmap.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -54,7 +58,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "less",
     "component": {}
   }
 }

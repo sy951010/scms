@@ -1,0 +1,25 @@
+.enlarge{
+    width:150px;
+    img{
+        width:100%;
+    }
+    .biggerPhoto{
+        display: none;
+        position:absolute;
+        left:150px;
+        top:0px;
+        width:660px;
+        padding:30px;
+        height:auto;
+        z-index:10000;
+        border:1px solid #ccc;
+        background-color:#fff;
+        img{
+            opacity:0;
+            width:600px;
+        }
+        img.showImg{
+            opacity:1;
+        }
+    }
+}
