@@ -7,19 +7,27 @@
     align-items: center;
     background-image: url("https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg");
     .loginbox{
+        position: relative;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: space-around;
+        // align-items: center;
+        flex-direction: column;
+        width: 300px;
+        height: 200px;
+        background-color: #fff;
+        .label{
+          display: flex;
+          justify-content: space-between;
+          // justify-content: space-around;
+        }
+        .title{
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%,-150%);
+        }
+        .error{
+          color: #f00;
+        }
     }
 }
- .login-form {
-      max-width: 300px;
-    }
-
-    .login-form-forgot {
-      float: right;
-    }
-
-    .login-form-button {
-      width: 100%;
-    }

@@ -42,53 +42,8 @@ export class IndexComponent implements OnInit {
                 ]
             },
             {
-                title: '销售管理',
-                name:'sell',
-                icon:'anticon-shopping-cart',
-                children: [
-                    { title: '卖订单', link: 'sellOrder' },
-                    { title: '售出订单', link: 'soldOrder' },
-                    { title: '退货订单', link: 'rejectOrder' },
-                    { title: '运单号', link: 'deliverNum' },
-                ]
-            },
-            {
-                title: 'APP管理',
-                name:'APP',
-                icon:'anticon-android',
-                children: [
-                    { title: '4.0活动管理', link: 'activityFrame' },
-                    { title: '版本管理', link: 'appVersion' },
-                    { title: '专栏管理', link: 'topic' },
-                    { title: '公告管理', link: 'noticeManage' },
-                    { title: 'KV管理', link: 'kv' },
-                    { title: '启动页管理', link: 'startup' },
-                    { title: '帮助中心', link: 'help' },
-                    { title: '新增品牌', link: 'newbrand' },
-                    { title: '新闻中心', link: 'news' },
-                    { title: '图片管理', link: 'uploadimg' },
-                ]
-            },
-            {
-                title: '配置管理',
-                name:'site',
-                icon:'anticon-setting',
-                children: [
-                    { title: '品类管理', link: 'tree' },
-                    { title: '品牌级别', link: 'brandGrade' },
-                    { title: '品牌管理', link: 'brand' },
-                    { title: '枚举项管理', link: 'enum' },
-                    { title: '常见问题管理', link: 'faq' },
-                    { title: '模板管理', link: 'template' },
-                    { title: '模板组管理', link: 'templateGroup' },
-                    { title: '报价因子管理', link: 'calculatorConfig' },
-                    { title: '物流管理', link: 'deliver' },
-                    { title: '关键词热搜管理', link: 'keywordRec' },
-                ]
-            },
-            {
-                title: '会员管理',
-                name:'usermanage',
+                title: '学生管理',
+                name:'stumanage',
                 icon:'anticon-user',
                 children: [
                     { title: '用户管理', link: 'member' },
@@ -117,17 +72,6 @@ export class IndexComponent implements OnInit {
                     { title: '日志查看', link: 'log' },
                     { title: '商品状态日志', link: 'buybackLog' },
                     { title: '友盟推送', link: 'umeng' },
-                ]
-            },
-            {
-                title: '财务管理',
-                name:'money',
-                icon:'anticon-bank',
-                children: [
-                    { title: '钱包管理', link: 'walletManager' },
-                    { title: '物流到付', link: 'logistics' },
-                    { title: '预约取件', link: 'appointPickup' },
-                    { title: '奖励金审核', link: 'bounty' },
                 ]
             },
             {
@@ -171,26 +115,6 @@ export class IndexComponent implements OnInit {
                     { title: '会话监听', link: 'sessionList' },
                     { title: '页面监听', link: 'pageList' },
                     { title: '事件监听', link: 'eventList' },
-                ]
-            },
-            {
-                title: '小程序管理',
-                name: 'bargain',
-                icon: 'anticon-message',
-                children: [
-                    { title: '砍价', link: 'bargain' },
-                    { title: '砍价记录', link: 'recordIndex' },
-                ]
-            },
-            {
-                title: '咸鱼管理',
-                name: 'ali',
-                icon: 'anticon-api',
-                children: [
-                    { title: 'SPU管理', link: 'spuManager' },
-                    { title: '报价管理', link: 'aliQuote' },
-                    { title: '订单管理', link: 'aliOrder' },
-                    { title: '黑名单管理', link: 'aliBlack' },
                 ]
             },
         ]

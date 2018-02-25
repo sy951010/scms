@@ -1,5 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../../app.component';
+import { Mock } from 'mockjs';
 const TitleList = ['用户ID', '钱包金额', '手机', '最近登录时间', '注册时间', '来源', '平台', '注册信息', '操作'];
 const sortList = [{ label: '用户ID', value: 'user_id' }, { label: '钱包金额', value: 'user_wallet' }, { label: '最近登录时间', value: 'user_last_login' }, { label: '注册时间', value: 'user_create_time' }];
 import {
@@ -7,6 +8,8 @@ import {
     OnInit,
     Inject
 } from '@angular/core';
+
+declare var Mock: any;
 
 @Component({
     selector: 'app-member',
@@ -37,6 +40,14 @@ export class MemberComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        var data = Mock.mock({
+            // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
+            'list|1-10': [{
+                // 属性 id 是一个自增数，起始值为 1，每次增 1
+                'id|+1': 1
+            }]
+        });
+        console.log(data);
         this.loading = true;
         this.sourceOption = [
             'focus',

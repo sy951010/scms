@@ -16,7 +16,7 @@ export class ApiService {
         account,
         password
     ) {
-        var url = 'http://192.168.124.17/scms/api/login.php';
+        var url = 'http://localhost/scms/api/login.php';
         return this.httpservice(url,
             {
                 account: account,

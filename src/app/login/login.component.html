@@ -1,5 +1,31 @@
 <div class="continner">
   <div class="loginbox">
-    
+    <div class="title">
+      <h1>竞赛管理系统</h1>
+    </div>
+    <nz-input [(ngModel)]="user_name" [nzType]="'text'" [nzPlaceHolder]="'Enter your userName'">
+      <ng-template #prefix>
+        <i class="anticon anticon-user"></i>
+      </ng-template>
+    </nz-input>
+    <nz-input [(ngModel)]="user_password" [nzType]="'text'" [nzPlaceHolder]="'Enter your userName'">
+      <ng-template #prefix>
+        <i class="anticon anticon-lock"></i>
+      </ng-template>
+    </nz-input>
+    <div style="min-height:14px">
+      <p [hidden]="!notice" class="error">账号或密码错误</p>
+    </div>
+    <div class="label" >
+      <label nz-checkbox [(ngModel)]="_checked" (ngModelChange)="_console($event)">
+        <span>记住密码</span>
+      </label>
+      <a class="login-form-forgot" class="login-form-forgot">忘记密码</a>
+    </div>
+    <button nz-button (click)="login()" class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">Log in</button>
+    <p>Or
+      <a class="login-form-forgot" class="login-form-forgot">忘记密码</a>
+    </p>
+
   </div>
 </div>

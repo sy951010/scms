@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -9,11 +10,15 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
     public user_name: string;
     public user_password: any;
+    public valForm: FormGroup;
+    public notice=false;
 
     constructor(
         @Inject('ApiService') private _api,
         private _route: Router,
-    ) { }
+    ) {
+
+     }
 
     ngOnInit() {
     }
@@ -23,7 +28,7 @@ export class LoginComponent implements OnInit {
             if (e.status == 200) {
                 this._route.navigate(['/index/notice'])
             } else {
-                window.alert('账号密码错误')
+                this.notice = true;
             }
         })
     }
