@@ -1,20 +1,23 @@
 <nz-table class="table" #nzTable 
-[nzLoading]="loading" 
+[nzShowTitle]="true"
+[nzDataSource]="memberList"
+[nzScroll]="{ x: _app.x, y:_app.y }"
+>
+<!-- [nzLoading]="loading" 
 [nzTotal]="TotalRecordCount" 
-[nzShowTitle]="true" 
+
 [nzPageSize]="pageSize"
 [(nzPageIndex)]="pageIndex" 
-[nzScroll]="{ x: _app.x, y:_app.y }" 
+ 
 [nzAjaxData]="memberList"
-(nzPageIndexChange)="getData()"
->
+(nzPageIndexChange)="getData()" -->
   <span nz-table-title class="table-title">
     <nz-breadcrumb>
       <nz-breadcrumb-item>会员管理</nz-breadcrumb-item>
       <nz-breadcrumb-item>用户管理</nz-breadcrumb-item>
     </nz-breadcrumb>
     <div class="button">
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="reload()">
+      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="getData()">
         <i class="anticon anticon-sync"></i>
         <span>刷新当前页</span>
       </button>
@@ -42,14 +45,13 @@
   </ng-template>
   <tbody nz-tbody>
     <tr nz-tbody-tr *ngFor="let i of nzTable.data">
-      <td nz-td><p class="click">{{i.user_id}}</p></td>
-      <td nz-td>{{i.user_wallet}}</td>
-      <td nz-td>{{i.user_mobile}}</td>
-      <td nz-td>{{i.user_last_login*1000|date:'yyy-MM-dd HH:mm:ss'}}</td>
-      <td nz-td>{{i.user_create_time*1000|date:'yyy-MM-dd HH:mm:ss'}}</td>
-      <td nz-td>{{i.user_platform}}</td>
-      <td nz-td>{{i.user_platform}}</td>
-      <td nz-td><p  class="click">查看</p></td>
+      <td nz-td><p class="click">{{i.id}}</p></td>
+      <td nz-td>{{i.name}}</td>
+      <td nz-td>{{i.tel}}</td>
+      <!-- <td nz-td>{{i.user_last_login*1000|date:'yyy-MM-dd HH:mm:ss'}}</td> -->
+      <td nz-td>{{i.email}}</td>
+      <td nz-td>{{i.school}}</td>
+      <td nz-td>{{i.address}}</td>
       <td nz-td><i class="anticon anticon-edit opera" style="margin-right:20px" title="编辑"></i> <i class="anticon anticon-delete opera" title="删除"></i></td>
     </tr>
   </tbody>

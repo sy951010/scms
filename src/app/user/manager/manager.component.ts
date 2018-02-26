@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AppComponent } from '../../app.component';
-import { HttpService } from '../../../service/http.service';
+// import { HttpService } from '../../../service/http.service';
 // 模拟数据2 
 const testTitle = ['序号', '商品', '商品信息', '价格', '所有权', '状态', 'WMS同步', '日志'];
 const testData = [{
@@ -179,11 +179,11 @@ export class ManagerComponent implements OnInit {
     public sortChecked: any;
     constructor(
         private _app: AppComponent,
-        @Inject('HttpService') private _http,
+        // @Inject('HttpService') private _http,
     ) { }
 
     ngOnInit() {
-        this._http.getData();
+        // this._http.getData();
     }
 
     // 获取排序返回数据

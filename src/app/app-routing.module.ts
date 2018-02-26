@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IndexComponent } from './common/index/index.component';
 import { NoticeComponent } from './common/notice/notice.component';
-import { MemberComponent } from './user-manage/member/member.component';
+import { MemberComponent } from './stu-manage/member/member.component';
 import { LoginComponent } from './login/login.component';
 import { SellerActComponent } from './data/seller-act/seller-act.component';
 
