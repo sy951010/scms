@@ -18,6 +18,8 @@ import { HttpModule } from '@angular/http';
 import { BuyerActComponent } from './data/buyer-act/buyer-act.component';
 import { ApiService } from '../service/api.service';
 import { NoticeComponent } from './common/notice/notice.component';
+import { PrimitComponent } from './process/primit/primit.component';
+import { ContestMoreComponent } from './contest/contest-more/contest-more.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { NoticeComponent } from './common/notice/notice.component';
     EnlargeImgComponent,
     BuyerActComponent,
     NoticeComponent,
+    PrimitComponent,
+    ContestMoreComponent,
   ],
   imports: [
     BrowserModule,

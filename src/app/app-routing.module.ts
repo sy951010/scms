@@ -7,12 +7,16 @@ import { NoticeComponent } from './common/notice/notice.component';
 import { MemberComponent } from './stu-manage/member/member.component';
 import { LoginComponent } from './login/login.component';
 import { SellerActComponent } from './data/seller-act/seller-act.component';
+import { PrimitComponent } from './process/primit/primit.component';
+import { ContestMoreComponent } from './contest/contest-more/contest-more.component';
 
 
 
 // 二级路由
 const AppChildRoutes: Routes = [
     { path: 'notice', component: NoticeComponent },
+    { path: 'primit', component: PrimitComponent },    
+    { path: 'contestMore', component: ContestMoreComponent },        
     { path: 'manager', component: ManagerComponent },
     { path: 'member', component: MemberComponent },
     { path: 'sellerActive', component: SellerActComponent },

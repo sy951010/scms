@@ -1,16 +1,11 @@
 <nz-table class="table" #nzTable 
 [nzShowTitle]="true"
-[nzDataSource]="memberList"
-[nzScroll]="{ x: _app.x, y:_app.y }"
->
-<!-- [nzLoading]="loading" 
-[nzTotal]="TotalRecordCount" 
-
-[nzPageSize]="pageSize"
-[(nzPageIndex)]="pageIndex" 
- 
+[nzTotal]="1000"
 [nzAjaxData]="memberList"
-(nzPageIndexChange)="getData()" -->
+[nzLoading]="loading"
+[nzScroll]="{ x: _app.x, y:_app.y }"
+(nzPageIndexChange)="getData()"
+>
   <span nz-table-title class="table-title">
     <nz-breadcrumb>
       <nz-breadcrumb-item>会员管理</nz-breadcrumb-item>
@@ -51,8 +46,8 @@
       <!-- <td nz-td>{{i.user_last_login*1000|date:'yyy-MM-dd HH:mm:ss'}}</td> -->
       <td nz-td>{{i.email}}</td>
       <td nz-td>{{i.school}}</td>
+      <td nz-td>{{i.zhuanye}}</td>
       <td nz-td>{{i.address}}</td>
-      <td nz-td><i class="anticon anticon-edit opera" style="margin-right:20px" title="编辑"></i> <i class="anticon anticon-delete opera" title="删除"></i></td>
     </tr>
   </tbody>
 </nz-table>

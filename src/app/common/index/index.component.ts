@@ -20,18 +20,18 @@ export class IndexComponent implements OnInit {
                 name:'process',
                 icon:'anticon-fork',
                 children: [
-                    { title: '待审批', link: 'buybackv4' },
+                    { title: '待审批', link: 'primit' },
                     { title: '待复核', link: 'waitsend' },
                     { title: '异常处理', link: 'buybackWarehouse' },
                 ]
             },
             {
                 title: '竞赛管理',
-                name:'product',
+                name:'contest',
                 icon:'anticon-camera',
                 children: [
-                    { title: '竞赛详情', link: 'productMore' },
-                    { title: '寄卖到期商品', link: 'expire' },
+                    { title: '竞赛详情', link: 'contestMore' },
+                    // { title: '寄卖到期商品', link: 'expire' },
                 ]
             },
             {

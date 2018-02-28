@@ -1,8 +1,5 @@
 <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="openSortModal()" id="sort">
-<span class="sortIcon">
-    <p><i class="upDown anticon anticon-caret-up"></i></p>
-    <p><i class="upDown anticon anticon-caret-down"></i></p>
-</span>
+<i id="sorticon" class="anticon anticon-swap"></i>
 <span class="sortText">排序</span>
 </button>
 <nz-modal [nzVisible]="sortModalVisible" [nzTitle]="'排序'" [nzContent]="sortModalContent" (nzOnOk)="confirmModalSort($event)"
