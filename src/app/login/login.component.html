@@ -14,7 +14,7 @@
       </ng-template>
     </nz-input>
     <div style="min-height:14px">
-      <p [hidden]="!notice" class="error">账号或密码错误</p>
+      <p [hidden]="!notice" class="error">{{user_password&&user_name?'账号密码不能为空':'账号或密码错误'}}</p>
     </div>
     <div class="label" >
       <label nz-checkbox [(ngModel)]="_checked" (ngModelChange)="_console($event)">

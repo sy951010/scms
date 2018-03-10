@@ -1,0 +1,127 @@
+<nz-card nzNoHovering class="card">
+  <ng-template #title>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>竞赛管理</nz-breadcrumb-item>
+      <nz-breadcrumb-item>添加竞赛项目</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+  <ng-template #body>
+    <nz-steps [(nzCurrent)]="current">
+      <nz-step [nzTitle]="'第一步'"></nz-step>
+      <nz-step [nzTitle]="'第二步'"></nz-step>
+      <nz-step [nzTitle]="'第三步'"></nz-step>
+    </nz-steps>
+
+    <div class="steps-content">
+      <div *ngIf="current==0" class="item" style="width:300px">
+        <h1>设置竞赛信息</h1>
+        <div nz-row [nzType]="'flex'" [nzAlign]="'middle'">
+          <div nz-col [nzSpan]="6" class="title">
+            竞赛名称:
+          </div>
+          <div nz-col [nzSpan]="18">
+            <nz-input [(ngModel)]="inputValue" [nzPlaceHolder]="'large size'" [nzSize]="'large'"></nz-input>
+          </div>
+        </div>
+        <div nz-row [nzType]="'flex'" [nzAlign]="'middle'">
+          <div nz-col [nzSpan]="6" class="title">
+            竞赛级别:
+          </div>
+          <div nz-col [nzSpan]="18">
+            <nz-select style="width: 100%;" [(ngModel)]="single" [nzSize]="'large'">
+              <nz-option [nzLabel]="'国家级'" [nzValue]="1">
+              </nz-option>
+              <nz-option [nzLabel]="'省级'" [nzValue]="2">
+              </nz-option>
+              <nz-option [nzLabel]="'市级'" [nzValue]="3">
+              </nz-option>
+              <nz-option [nzLabel]="'校内'" [nzValue]="4">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div nz-row [nzType]="'flex'" [nzAlign]="'middle'">
+          <div nz-col [nzSpan]="6" class="title">
+            竞赛类型:
+          </div>
+          <div nz-col [nzSpan]="18">
+            <nz-select style="width: 100%;" [(ngModel)]="single" [nzSize]="'large'">
+              <nz-option [nzLabel]="'统一考试'" [nzValue]="1">
+              </nz-option>
+              <nz-option [nzLabel]="'学科竞赛'" [nzValue]="2">
+              </nz-option>
+              <nz-option [nzLabel]="'文学艺术'" [nzValue]="3">
+              </nz-option>
+              <nz-option [nzLabel]="'体育竞技'" [nzValue]="4">
+              </nz-option>
+              <nz-option [nzLabel]="'其他'" [nzValue]="5">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div nz-row [nzType]="'flex'" [nzAlign]="'middle'">
+          <div nz-col [nzSpan]="6">
+            参与方式:
+          </div>
+          <div nz-col [nzSpan]="18" class="title">
+            <nz-select style="width: 100%;" [(ngModel)]="single" [nzSize]="'large'">
+              <nz-option [nzLabel]="'个人'" [nzValue]="1">
+              </nz-option>
+              <nz-option [nzLabel]="'团队'" [nzValue]="2">
+              </nz-option>
+              <nz-option [nzLabel]="'个人/团队'" [nzValue]="3">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="current==1" class="item" style="width:300px">
+        <h1>设置奖项</h1>
+        <div nz-row *ngFor="let item of items,let i = index">
+          <div nz-col [nzSpan]="6" class="title">
+            第{{i}}等
+          </div>
+          <div nz-col [nzSpan]="18">
+            <nz-input [nzSize]="'large'"></nz-input>
+          </div>
+        </div>
+        <div>
+          <button nz-button (click)="reduce()" [nzType]="'primary'" [nzSize]="'large'">减少</button>
+          <button nz-button (click)="add()" [nzType]="'primary'" [nzSize]="'large'">增加</button>
+        </div>
+        
+      </div>
+      <div *ngIf="current==2" class="item" style="width:300px">
+        <h1>设置信息</h1>
+        <div nz-row [nzType]="'flex'" [nzAlign]="'middle'">
+          <div nz-col [nzSpan]="6" class="title">
+            是否开启
+          </div>
+          <div nz-col [nzSpan]="18">
+            <nz-switch [(ngModel)]="switchValue"></nz-switch>
+          </div>
+        </div>
+        <div nz-row [nzType]="'flex'" [nzAlign]="'middle'">
+          <div nz-col [nzSpan]="6" class="title">
+            截止日期
+          </div>
+          <div nz-col [nzSpan]="18">
+            <nz-datepicker [(ngModel)]="_date" [nzDisabled]="!switchValue" [nzPlaceHolder]="'Select date'"></nz-datepicker>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="steps-action">
+      <button nz-button [nzType]="'default'" (click)="pre()" *ngIf="current > 0">
+        <span>上一步</span>
+      </button>
+      <button nz-button [nzType]="'default'" (click)="next()" *ngIf="current < 2">
+        <span>下一步</span>
+      </button>
+      <button nz-button [nzType]="'primary'" (click)="done()" *ngIf="current === 2">
+        <span>添加</span>
+      </button>
+    </div>
+  </ng-template>
+</nz-card>

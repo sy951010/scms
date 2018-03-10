@@ -24,12 +24,17 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        this._api.login(this.user_name,this.user_password).then(e=>{
-            if (e.status == 200) {
-                this._route.navigate(['/index/notice'])
-            } else {
-                this.notice = true;
-            }
-        })
+        if (this.user_name&&this.user_password) {
+            this._api.login(this.user_name, this.user_password).then(e => {
+                if (e.status == 200) {
+                    this._route.navigate(['/index/notice'])
+                } else {
+                    this.notice = true;
+                }
+            })
+        }else{
+            this.notice = false;
+        }
+        
     }
 }

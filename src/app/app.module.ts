@@ -20,6 +20,10 @@ import { ApiService } from '../service/api.service';
 import { NoticeComponent } from './common/notice/notice.component';
 import { PrimitComponent } from './process/primit/primit.component';
 import { ContestMoreComponent } from './contest/contest-more/contest-more.component';
+import { EditComponent } from './contest/edit/edit.component';
+import { ContestListComponent } from './contest/contest-list/contest-list.component';
+import { ReviewComponent } from './process/review/review.component';
+import { HandErrorComponent } from './process/hand-error/hand-error.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,10 @@ import { ContestMoreComponent } from './contest/contest-more/contest-more.compon
     NoticeComponent,
     PrimitComponent,
     ContestMoreComponent,
+    EditComponent,
+    ContestListComponent,
+    ReviewComponent,
+    HandErrorComponent,
   ],
   imports: [
     BrowserModule,

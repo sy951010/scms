@@ -9,14 +9,22 @@ import { LoginComponent } from './login/login.component';
 import { SellerActComponent } from './data/seller-act/seller-act.component';
 import { PrimitComponent } from './process/primit/primit.component';
 import { ContestMoreComponent } from './contest/contest-more/contest-more.component';
+import { EditComponent } from './contest/edit/edit.component';
+import { ReviewComponent } from './process/review/review.component';
+import { HandErrorComponent } from './process/hand-error/hand-error.component';
+import { ContestListComponent } from './contest/contest-list/contest-list.component';
 
 
 
 // 二级路由
 const AppChildRoutes: Routes = [
     { path: 'notice', component: NoticeComponent },
-    { path: 'primit', component: PrimitComponent },    
-    { path: 'contestMore', component: ContestMoreComponent },        
+    { path: 'primit', component: PrimitComponent }, 
+    { path: 'review', component: ReviewComponent },    
+    { path: 'handerror', component: HandErrorComponent },           
+    { path: 'contestList', component: ContestMoreComponent },
+    { path: 'contestMore/:id', component: ContestListComponent },    
+    { path: 'contest/edit', component: EditComponent },                    
     { path: 'manager', component: ManagerComponent },
     { path: 'member', component: MemberComponent },
     { path: 'sellerActive', component: SellerActComponent },

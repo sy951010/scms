@@ -21,8 +21,8 @@ export class IndexComponent implements OnInit {
                 icon:'anticon-fork',
                 children: [
                     { title: '待审批', link: 'primit' },
-                    { title: '待复核', link: 'waitsend' },
-                    { title: '异常处理', link: 'buybackWarehouse' },
+                    { title: '待复核', link: 'review' },
+                    { title: '异常处理', link: 'handerror' },
                 ]
             },
             {
@@ -30,8 +30,7 @@ export class IndexComponent implements OnInit {
                 name:'contest',
                 icon:'anticon-camera',
                 children: [
-                    { title: '竞赛详情', link: 'contestMore' },
-                    // { title: '寄卖到期商品', link: 'expire' },
+                    { title: '竞赛详情', link: 'contestList' },
                 ]
             },
             {

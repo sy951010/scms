@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../../app.component';
-const TitleList = ['竞赛名称', '级别', '类型', '申报截止日期',  '状态', '修改人'];
 declare var Mock: any;
-
+const TitleList = ['竞赛名称', '级别', '类型', '提交人', '提交时间', '状态', '修改人'];
 @Component({
-  selector: 'app-contest-more',
-  templateUrl: './contest-more.component.html',
-  styleUrls: ['./contest-more.component.less']
+  selector: 'app-hand-error',
+  templateUrl: './hand-error.component.html',
+  styleUrls: ['./hand-error.component.less']
 })
-export class ContestMoreComponent implements OnInit {
+export class HandErrorComponent implements OnInit {
   public TitleList = TitleList;
   public List = [];
   public searchbox = false;
   constructor(
-    private _app: AppComponent,
+    private _app: AppComponent,    
   ) { }
 
   ngOnInit() {
@@ -37,9 +36,11 @@ export class ContestMoreComponent implements OnInit {
           'type|1': [
             '个人',
             '团队',
-            '团队/个人',            
           ],
-          'begintime|10000-99999': 1,
+          'peoplename|1': function () {
+            return Mock.mock('@name')
+          },
+          'time|10000-99999': 1,
           'status|1-3': 1,
           'changename|1': function () {
             return Mock.mock('@name')
