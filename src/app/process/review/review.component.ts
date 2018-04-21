@@ -1,54 +1,63 @@
+import { element } from 'protractor';
 import { AppComponent } from './../../app.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
 declare var Mock: any;
-const TitleList = ['竞赛名称', '级别', '类型', '提交人', '提交时间', '状态', '修改人'];
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.less']
 })
 export class ReviewComponent implements OnInit {
-  public TitleList = TitleList;
-  public List = [];
+  public gameList = [];
+  public awardList = [];
+  public teaList = [];
+  public Item = [];
   public searchbox = false;
+  public Sorting1 = "account_id DESC";
+  public Sorting2 = "contest_id DESC";
+  
+  public obj = {};
   constructor(
-    private _app: AppComponent
+    @Inject('ApiService') private _api,
+    private _app: AppComponent,
+    private confirmServ: NzModalService,
+    private _notification: NzNotificationService
   ) { }
 
   ngOnInit() {
-    this.getData();
+    this.getGame();
+    this.getTea();
+    this.obj['radiovalue'] = 2;
   }
-  getData() {
-    let data = Mock.mock({
-      'array|10': [
-        {
-          'name|1': [
-            '英语四级',
-            '计算机二级',
-            '蓝桥杯',
-            '运动会',
-          ],
-          'jibie|1': [
-            '国家级',
-            '省级',
-            '校级',
-          ],
-          'type|1': [
-            '个人',
-            '团队',
-          ],
-          'peoplename|1': function () {
-            return Mock.mock('@name')
-          },
-          'time|10000-99999': 1,
-          'status|1-3': 1,
-          'changename|1': function () {
-            return Mock.mock('@name')
-          },
-        }
-      ]
+  getGame() {
+    this._api.contestList(this.Sorting2).then(e => {
+      this.gameList = e.data;
     })
-    this.List = data.array;
   }
-
+  getItem(id) {
+    this.obj['item_id'] = null;
+    for (let i = 0; i < this.gameList.length; i++) {
+      const element = this.gameList[i];
+      if (element.contest_id == id) {
+        this.Item = element.item ? JSON.parse(element.item) : [{ key: -1, value: '无' }];
+        this.awardList = element.award ? JSON.parse(element.award) : [{ key: -1, value: '无' }];
+        this.obj['radiovalue'] = element.radiovalue;
+      }
+    }
+  }
+  getTea() {
+    this._api.memberList(this.Sorting1).then(e => {
+      this.teaList = e.data;
+    })
+  }
+  put() {
+    this.obj['token'] = window.localStorage.getItem('token');
+    this._api.application(this.obj).then(e => {
+      if (e.data) {
+        this._notification.success('添加成功', '申请老师会受到你的通知', { nzDuration: 4000 });
+        window.history.go(-1);
+      }
+    })
+  }
 }

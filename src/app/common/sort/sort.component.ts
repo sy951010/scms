@@ -17,6 +17,9 @@ export class SortComponent implements OnInit {
     @Input() public sortList: Array<any>; // 需要传入的排序名称列表
     public selectedOption1: any; // 选中的排序名称
     public selectedOption2: any; // 选中的排序方式
+    public sel1=false; // 选中的排序方式
+    public sel2=false; // 选中的排序方式
+    
     @Output() selectedOption = new EventEmitter();
 
     constructor() { }
@@ -31,7 +34,18 @@ export class SortComponent implements OnInit {
         this.sortModalVisible = false;
     }
     confirmModalSort(e) {
-        this.selectedOption.emit({'key': this.selectedOption1.value, 'value': this.selectedOption2.value});
+        if (this.selectedOption1&&this.selectedOption2) {
+            this.selectedOption.emit({'key': this.selectedOption1.value, 'value': this.selectedOption2.value});
+        }else{
+            this.selectedOption1?this.sel1=false:this.sel1=true;
+            this.selectedOption2?this.sel2=false:this.sel2=true;
+            return;
+        }
         this.closeModalSort();
+    }
+    ngOnDestroy() {
+        //Called once, before the instance is destroyed.
+        //Add 'implements OnDestroy' to the class.
+        this.sel1=this.sel2 = false;
     }
 }

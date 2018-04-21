@@ -1,4 +1,3 @@
-import {ManagerComponent} from './user/manager/manager.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -13,6 +12,7 @@ import { EditComponent } from './contest/edit/edit.component';
 import { ReviewComponent } from './process/review/review.component';
 import { HandErrorComponent } from './process/hand-error/hand-error.component';
 import { ContestListComponent } from './contest/contest-list/contest-list.component';
+import { MemberMoreComponent } from './stu-manage/member-more/member-more.component';
 
 
 
@@ -25,8 +25,9 @@ const AppChildRoutes: Routes = [
     { path: 'contestList', component: ContestMoreComponent },
     { path: 'contestMore/:id', component: ContestListComponent },    
     { path: 'contest/edit', component: EditComponent },                    
-    { path: 'manager', component: ManagerComponent },
     { path: 'member', component: MemberComponent },
+    { path: 'memberMore/:id', component: MemberMoreComponent },    
+    { path: 'stuMore', component: MemberMoreComponent },        
     { path: 'sellerActive', component: SellerActComponent },
     { path: '**', redirectTo: 'notice' }
 ];

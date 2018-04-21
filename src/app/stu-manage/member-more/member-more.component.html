@@ -1,0 +1,104 @@
+<nz-card nzNoHovering class="memberbox">
+  <ng-template #title>
+    <div class="title">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>竞赛管理</nz-breadcrumb-item>
+        <nz-breadcrumb-item>学生管理</nz-breadcrumb-item>
+        <nz-breadcrumb-item>个人详情</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <p class="click" (click)="show()" *ngIf="_api.check().auth==0">修改基本信息</p>
+    </div>
+
+  </ng-template>
+  <ng-template #body>
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <div class="avatar">
+          <nz-avatar nzSize="large" nzIcon="user"></nz-avatar>
+          <div class="user_info">
+            <div nz-row>
+              <p class="name">{{Info?.name}}</p>
+            </div>
+            <div nz-row>
+              <p class="info">简介:{{Info?Info.school:''}}-{{Info?.gard}}级-{{Info?.depart}}-{{Info?.profes}}</p>
+            </div>
+          </div>
+          <div class="user_act">
+            <div nz-row [nzType]="'flex'" [nzJustify]="'end'">
+              <div nz-col [nzSpan]="6" class="item">
+                <p>进行中</p>
+                <p>12</p>
+              </div>
+              <div nz-col [nzSpan]="6" class="item">
+                <p>已完成</p>
+                <p>23</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div nz-row style="margin-top:10px">
+      <div nz-col [nzSpan]="14">
+        <nz-card id="nopadding" nzNoHovering>
+          <ng-template #title>进行中的提交</ng-template>
+          <ng-template #body>
+            <div nz-row>
+              <div nz-col [nzSpan]="8">
+                <nz-card nzBordered="false">
+                  <ng-template #body>
+                  校内运动会
+                  </ng-template>
+                </nz-card>
+              </div>
+            </div>
+          </ng-template>
+        </nz-card>
+        <br>
+        <br>
+        <nz-card nzNoHovering>
+          <ng-template #title>留言</ng-template>
+          <ng-template #body>
+            <ul class="list">
+              <li>
+                Alier 对 你说:你的<span class="click">蓝桥杯</span>审批 <span>已通过</span>
+              </li>
+              <li>
+                blob 对 你说:你的<span class="click">蓝桥杯</span>审批<span>已通过</span>
+              </li>
+              <li>
+                zair 对 你说:你的<span class="click">蓝桥杯</span>审批<span>已通过</span>
+              </li>
+              <li>
+                zolar 对 你说:你的<span class="click">蓝桥杯</span>审批<span>已通过</span>
+              </li>
+            </ul>
+          </ng-template>
+        </nz-card>
+      </div>
+      <div nz-col [nzSpan]="8" [nzOffset]="2">
+        <nz-card nzNoHovering>
+          <ng-template #title>个人指数</ng-template>
+          <ng-template #body>
+            <div id="spider" class="demo-chart"></div>
+          </ng-template>
+        </nz-card>
+      </div>
+    </div>
+  </ng-template>
+</nz-card>
+
+<nz-modal [nzVisible]="modal" [nzTitle]="'修改信息'" [nzContent]="sortModalContent" (nzOnOk)="update()" (nzOnCancel)="modal = false">
+  <ng-template #sortModalContent>
+    <p>学校</p>
+    <nz-input [(ngModel)]="obj['school']" [nzSize]="'large'"></nz-input>
+    <p>院系</p>
+    <nz-input [(ngModel)]="obj['depart']" [nzSize]="'large'"></nz-input>
+    <p>专业</p>
+    <nz-input [(ngModel)]="obj['profes']" [nzSize]="'large'"></nz-input>
+    <p>联系电话</p>
+    <nz-input [(ngModel)]="obj['name']" [nzSize]="'large'"></nz-input>
+    <p>现住址</p>
+    <nz-input [(ngModel)]="obj['gard']" [nzSize]="'large'"></nz-input>
+  </ng-template>
+</nz-modal>

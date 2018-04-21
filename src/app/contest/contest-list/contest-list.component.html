@@ -1,16 +1,86 @@
 <nz-card nzNoHovering class="contest">
-    <ng-template #title>
+  <ng-template #title>
+    <div class="title">
       <nz-breadcrumb>
         <nz-breadcrumb-item>竞赛管理</nz-breadcrumb-item>
         <nz-breadcrumb-item>竞赛详情</nz-breadcrumb-item>
-        <nz-breadcrumb-item>No.123123</nz-breadcrumb-item>        
+        <nz-breadcrumb-item>No.{{Info?.id}}</nz-breadcrumb-item>
       </nz-breadcrumb>
-    </ng-template>
-    <ng-template #body>
-        <div nz-row>
-            <div nz-col [nzSpan]="4">
-                <h1>名称: 蓝桥杯</h1>
-            </div>
+      <div class="button">
+        <button nz-button *ngIf="_api.check().auth==1" [nzType]="'primary'" [nzSize]="'large'">修改竞赛信息</button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #body>
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <h1>名称: {{Info?.name}}</h1>
+      </div>
+    </div>
+    <div nz-row style="margin-top:10px">
+      <div nz-col [nzSpan]="16">
+        <div nz-row style="margin-top:10px">
+          <div nz-col [nzSpan]="12">
+            <p>创建人：甲磺酸</p>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <p>最后修改人：{{Info?.update_name}}</p>
+          </div>
         </div>
-    </ng-template>
+        <div nz-row style="margin-top:10px">
+          <div nz-col [nzSpan]="12">
+            <p>最后修改时间:{{Info?.endtime*1000|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <p>参与方式:{{mode[Info.mode]}}</p>
+          </div>
+        </div>
+        <div nz-row style="margin-top:10px">
+          <div nz-col [nzSpan]="12">
+            <p>级别:{{garde[Info.garde]}}</p>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <p>类型:{{type[Info.type]}}</p>
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <div nz-row style="margin-top:10px">
+          <div nz-col [nzSpan]="12">
+            <p>状态:</p>
+            <p>{{Info.status==1?'开启':'关闭'}}</p>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <p>申请截止日期:</p>
+            <p>{{Info?.endtime*1000|date:'yyyy-MM-dd hh:mm:ss'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nz-tabset style="margin-top:10px">
+      <nz-tab>
+        <ng-template #nzTabHeading>
+          奖项设置
+        </ng-template>
+        <div *ngIf="Info.radiovalue==2">
+          <p *ngFor="let i of award">{{i.value}}</p>
+        </div>
+        <div *ngIf="Info.radiovalue==1">
+          <p>比赛结果以分数展示</p>
+        </div>
+      </nz-tab>
+      <nz-tab>
+        <ng-template #nzTabHeading>
+          竞赛信息
+        </ng-template>
+        <div>
+          <h2>比赛项目</h2>
+          <div *ngIf="Info['item']">
+            <p *ngFor="let i of item">{{i.value}}</p>
+          </div>
+          <p *ngIf="!Info['item']">比赛暂无信息</p>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  </ng-template>
 </nz-card>

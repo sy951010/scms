@@ -1,0 +1,10 @@
+<div class="needCount">
+    <span>{{value}}：</span>
+    <nz-datepicker
+     style="width:100%;" 
+     [nzPlaceHolder]="'Select date'"
+     [nzFormat]="'YYYY-MM-DD HH:mm:ss'"
+     [(ngModel)]="date"
+     (ngModelChange)="change($event)"
+     nzShowTime></nz-datepicker>
+</div>

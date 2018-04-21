@@ -1,20 +1,12 @@
-tr{
-    display: flex;
+.memberbox{
+    position: absolute;
     width: 100%;
-    th{
-        flex: auto;
-        flex-basis: 14.28%;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    .item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-    td{
-        flex: auto;
-        flex-basis: 14.28%;
-        text-align: center;
-    }
-    th{
-        text-align: center;
-    }
-}
-.opera{
-    font-size: 20px;
-    cursor: pointer;
 }

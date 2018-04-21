@@ -1,0 +1,40 @@
+<button *ngIf="list.kind == 0" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="openSearchModal()">
+    <i class="anticon anticon-plus"></i>
+    <span>添加</span>
+</button>
+<button *ngIf="list.kind == 1" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="openSearchModal()">
+    <i class="anticon anticon-search"></i>
+    <span>搜索</span>
+</button>
+
+<nz-modal [nzVisible]="searchModalVisible" [nzTitle]="list.kind == 0 ? '添加' : '搜索'" [nzContent]="sortModalContent" (nzOnOk)="confirmModalSearch($event)"
+  (nzOnCancel)="closeModalSearch()">
+  <ng-template #sortModalContent>
+    <!-- <div *ngIf="colType == 1"> -->
+    <div *ngFor="let item of searchList">
+        <!-- 文本输入 -->
+        <div *ngIf="item?.type == 0">
+            <app-search-text [key]="item?.value.key" [value]="item?.value.name" [type]="item?.typeStyle" (returns)="searchText($event)"></app-search-text>
+        </div>
+        <!-- 下拉单选 -->
+        <div *ngIf="item?.type == 1">
+            <app-search-select [key]="item?.value.key" [value]="item?.value.name" [list]="item?.value.list" (returns)="searchSelected($event)"></app-search-select>
+        </div>
+
+        <!-- 下拉多选 -->
+        <div *ngIf="item.type == 2">
+            <app-search-selects [key]="item?.value.key" [value]="item?.value.name" [list]="item?.value.list" (returns)="searchSelecteds($event)"></app-search-selects>
+        </div>
+
+        <!-- 时间点 -->
+        <div *ngIf="item.type == 3">
+            <app-search-date [key]="item?.value.key" [value]="item?.value.name" (returns)="searchDate($event)"></app-search-date>
+        </div>
+
+        <!-- 时间段 -->
+        <div *ngIf="item.type == 4">
+            <app-search-dates [key]="item?.value.key" [value]="item?.value.name" (returns)="searchDates($event)"></app-search-dates>
+        </div>
+    </div>
+  </ng-template>
+</nz-modal>

@@ -1,0 +1,4 @@
+<!-- 文本框：需要输入 key&&value；会返回输入的 key&&value -->
+<span>{{value}}：</span>
+<nz-input [nzPlaceHolder]="'Basic usage'" [nzType]="type ? type : 'text'" [(ngModel)]="inputValue" (ngModelChange)="_console($event)" (nzBlur)="passOn()"></nz-input>
+<p class="marginTop10"></p>

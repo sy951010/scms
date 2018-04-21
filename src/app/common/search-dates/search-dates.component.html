@@ -1,0 +1,25 @@
+ <div class="needCount">
+    <span>{{value}}：</span>
+    <br>
+    <div nz-row>
+        <div nz-col [nzSpan]="11">
+            <nz-datepicker 
+            style="width: 100%;" 
+            [nzFormat]="'YYYY-MM-DD HH:mm:ss'"
+            [nzPlaceHolder]="'Start date'"
+            [(ngModel)]="date1"
+            (ngModelChange)="change($event,0)"
+            nzShowTime></nz-datepicker>
+        </div>
+        <div nz-col [nzSpan]="2" style="text-align:center;">~</div>
+        <div nz-col [nzSpan]="11">
+            <nz-datepicker 
+            style="width: 100%;" 
+            [nzFormat]="'YYYY-MM-DD HH:mm:ss'"
+            [nzPlaceHolder]="'End date'"
+            [(ngModel)]="date2"
+            (ngModelChange)="change($event,1)"
+            nzShowTime></nz-datepicker>
+        </div>
+    </div>
+</div>

@@ -1,90 +1,73 @@
-<nz-table class="table" #nzTable [nzShowTitle]="true" [nzTotal]="1000" [nzAjaxData]="List" [nzLoading]="loading" [nzScroll]="{ x: _app.x, y:_app.y }"
-  (nzPageIndexChange)="getData()">
-  <span nz-table-title class="table-title">
-    <nz-breadcrumb>
-      <nz-breadcrumb-item>流程管理</nz-breadcrumb-item>
-      <nz-breadcrumb-item>待复核</nz-breadcrumb-item>
-    </nz-breadcrumb>
-    <div class="button">
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="getData()">
-        <i class="anticon anticon-sync"></i>
-        <span>刷新当前页</span>
-      </button>
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="search()">
-        <i class="anticon anticon-search"></i>
-        <span>搜索</span>
-      </button>
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'">
-        <i class="anticon anticon-download"></i>
-        <span>下载数据</span>
-      </button>
-      <span>
-        <app-sort [sortList]="sortList" (selectedOption)="returnSortChecked($event)"></app-sort>
-      </span>
+<nz-card nzNoHovering class="memberbox">
+  <ng-template #title>
+    <div class="title">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>流程管理</nz-breadcrumb-item>
+        <nz-breadcrumb-item>审批管理</nz-breadcrumb-item>
+        <nz-breadcrumb-item>发起审批</nz-breadcrumb-item>
+      </nz-breadcrumb>
     </div>
-  </span>
-  <ng-template #nzFixedHeader>
-    <thead nz-thead>
-      <tr>
-        <th nz-th *ngFor="let item of TitleList">
-          <span>{{item}}</span>
-        </th>
-      </tr>
-    </thead>
   </ng-template>
-  <tbody nz-tbody>
-    <tr nz-tbody-tr *ngFor="let i of nzTable.data">
-      <td nz-td>
-        <p class="click">{{i.name}}</p>
-      </td>
-      <td nz-td>{{i.jibie}}</td>
-      <td nz-td>{{i.type}}</td>
-      <!-- <td nz-td>{{i.user_last_login*1000|date:'yyy-MM-dd HH:mm:ss'}}</td> -->
-      <td nz-td>{{i.peoplename}}</td>
-      <td nz-td>{{i.time}}</td>
-      <td nz-td>{{i.status}}</td>
-      <td nz-td>{{i.changename}}</td>
-    </tr>
-  </tbody>
-</nz-table>
-<!-- 搜索弹框 -->
-<nz-modal [nzVisible]="searchbox" [nzTitle]="'搜索内容'" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)" (nzOnOk)="handleOk($event)">
-  <ng-template #modalContent>
-    <div nz-row [nzType]="'flex'" [nzJustify]="'space-between'">
-      <div nz-col [nzSpan]="9" [nzPush]="1">
-        <div nz-row [nzGutter]="12">
-          <h3>用户ID</h3>
-          <nz-input [(ngModel)]="uid"></nz-input>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>来源</h3>
-          <nz-select style="width:100%" [(ngModel)]="source" [nzPlaceHolder]="'选择用户来源'" nzAllowClear>
-            <nz-option *ngFor="let option of sourceOption" [nzLabel]="option" [nzValue]="option">
-            </nz-option>
-          </nz-select>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>创建时间</h3>
-          <nz-rangepicker [(ngModel)]="creat" nzShowTime [nzFormat]="'YYYY-MM-DD HH:mm:ss'"></nz-rangepicker>
-        </div>
+  <ng-template #body>
+    <div nz-row>
+      <div class="item" nz-col [nzSpan]="10" [nzOffset]="7">
+        <span>竞赛名称</span>
+        <nz-select style="width:240px" [(ngModel)]="obj['game_id']" (ngModelChange)="getItem(obj['game_id'])" nzShowSearch>
+          <nz-option *ngFor="let item of gameList" [nzLabel]="item.name" [nzValue]="item.contest_id">
+          </nz-option>
+        </nz-select>
       </div>
-      <div nz-col [nzSpan]="9" [nzPull]="1">
-        <div nz-row [nzGutter]="12">
-          <h3>手机</h3>
-          <nz-input [(ngModel)]=tel></nz-input>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>平台</h3>
-          <nz-select style="width:100%" [(ngModel)]="platform" [nzPlaceHolder]="'选择用户平台'" nzAllowClear>
-            <nz-option *ngFor="let option of platformOption" [nzLabel]="option" [nzValue]="option">
-            </nz-option>
-          </nz-select>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>登陆时间</h3>
-          <nz-rangepicker [(ngModel)]="login" nzShowTime [nzFormat]="'YYYY-MM-DD HH:mm:ss'"></nz-rangepicker>
-        </div>
+    </div>
+    <div nz-row style="margin-top:16px">
+      <div class="item" nz-col [nzSpan]="10" [nzOffset]="7">
+        <span>项目名称</span>
+        <nz-select style="width:240px" [(ngModel)]="obj['item_id']">
+          <nz-option *ngFor="let item of Item" [nzLabel]="item.value" [nzValue]="item.key">
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-row style="margin-top:16px">
+      <div class="item" nz-col [nzSpan]="10" [nzOffset]="7">
+        <span>参与方式</span>
+        <nz-select style="width:240px" [(ngModel)]="obj['mode']">
+          <nz-option [nzLabel]="'个人'" [nzValue]="1">
+          </nz-option>
+          <nz-option [nzLabel]="'团队'" [nzValue]="2">
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-row style="margin-top:16px">
+      <div class="item" nz-col [nzSpan]="10" [nzOffset]="7">
+        <span>获得奖项/分数</span>
+        <nz-input style="width:240px" *ngIf="obj['radiovalue']==1" [(ngModel)]="obj['garde']" [nzSize]="'large'"></nz-input>
+        <nz-select *ngIf="obj['radiovalue']==2" style="width:240px" [(ngModel)]="obj['garde']">
+          <nz-option *ngFor="let item of awardList" [nzLabel]="item.value" [nzValue]="item.key">
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-row style="margin-top:16px">
+      <div class="item" nz-col [nzSpan]="10" [nzOffset]="7">
+        <span>指导老师</span>
+        <nz-select style="width:240px" [(ngModel)]="obj['teacher']" [nzMode]="'multiple'">
+          <nz-option [nzLabel]="'无'" [nzValue]="-1"></nz-option>
+          <nz-option *ngFor="let item of teaList" [nzLabel]="item.name" [nzValue]="item.account_id">
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-row style="margin-top:16px">
+      <div class="item" nz-col [nzSpan]="10" [nzOffset]="7">
+        <span>审批描述</span>
+        <nz-input style="width:240px" [(ngModel)]="obj['desc']" nzType="textarea" nzAutosize ></nz-input>
+      </div>
+    </div>
+    <div nz-row style="margin-top:16px">
+      <div style="text-align:center" nz-col [nzSpan]="14" [nzOffset]="5">
+        <button nz-button (click)="put()" [nzType]="'primary'" [nzSize]="'large'">提交</button>
       </div>
     </div>
   </ng-template>
-</nz-modal>
+</nz-card>

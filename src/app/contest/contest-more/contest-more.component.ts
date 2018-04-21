@@ -1,52 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AppComponent } from '../../app.component';
-const TitleList = ['竞赛名称', '级别', '类型', '申报截止日期',  '状态', '修改人'];
+const TitleList = ['#','竞赛名称', '级别', '类型', '申报截止日期',  '状态', '创建人'];
 declare var Mock: any;
-
+const sortList = [
+  { label: 'ID', value: 'contest_id' }, 
+  { label: '级别', value: 'garde' }, 
+  { label: '截止日期', value: 'endtime' }, 
+];
+const searchList = {
+  kind: 1, // 搜索
+  list: [
+    { type: 0, value: { key: 'contest_id', name: '竞赛Id' } },
+  ]
+};
 @Component({
   selector: 'app-contest-more',
   templateUrl: './contest-more.component.html',
   styleUrls: ['./contest-more.component.less']
 })
 export class ContestMoreComponent implements OnInit {
-  public TitleList = TitleList;
-  public List = [];
-  public searchbox = false;
+  public TitleList = TitleList; // 标题列表
+  public sortList = sortList;  // 用于排序的字段
+  public searchList = searchList;  // 用于排序的字段 
+  public searchObj = {};
+  public memberList = [];  // 用户列表
+  public loading: boolean;  // 加载动画
+  public TotalRecordCount: number; // 数据总条目
+  public Sorting = 'contest_id DESC' // 默认按id倒序
+  public enum={};
   constructor(
+    @Inject('ApiService') private _api,
     private _app: AppComponent,
   ) { }
 
   ngOnInit() {
+    this._api.getenum().then(e=>{
+      this.enum = e;
+      this.getData();      
+    })
+  }
+
+  getData() {
+    this.loading = true;
+    this._api.contestList(this.Sorting, this.searchObj).then(e => {
+      this.memberList = e.data;
+      this.TotalRecordCount = this.memberList.length;
+    })
+    this.loading = false;
+  }
+  reload() {
+    this.searchObj = null;
     this.getData();
   }
-  getData() {
-    let data = Mock.mock({
-      'array|10': [
-        {
-          'name|1': [
-            '英语四级',
-            '计算机二级',
-            '蓝桥杯',
-            '运动会',
-          ],
-          'jibie|1': [
-            '国家级',
-            '省级',
-            '校级',
-          ],
-          'type|1': [
-            '个人',
-            '团队',
-            '团队/个人',            
-          ],
-          'begintime|10000-99999': 1,
-          'status|1-3': 1,
-          'changename|1': function () {
-            return Mock.mock('@name')
-          },
-        }
-      ]
-    })
-    this.List = data.array;
+  returnSortChecked(e) {
+    this.Sorting = `${e.key} ${e.value == 0 ? 'ASC' : 'DESC'}`;
+    this.getData();
+  }
+  returnSearchChecked(e) {
+    this.searchObj = e;
+    this.getData();
+  }
+  downLoad() {
+    location.href = 'http://localhost/scms/api/export.php';
   }
 }

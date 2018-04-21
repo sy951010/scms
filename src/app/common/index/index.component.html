@@ -1,23 +1,25 @@
 <nz-layout class="body">
   <nz-header class="head">
-      <div  class="head_top">
-        <h1>Share v4.4.0</h1>
-      </div>
-      <div  class="head_top">
-        <nz-dropdown>
-          <button nz-button nz-dropdown>
-            <i class="anticon anticon-user"></i>
-            <i class="anticon anticon-down"></i>
-          </button> 
-          <ul nz-menu >
-            <li nz-menu-item>
-              <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/"><i class="anticon anticon-tool" style="margin-right:10px"></i>修改密码</a>
-            </li>
-            <li nz-menu-item>
-              <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/"><i class="anticon anticon-logout" style="margin-right:10px"></i>退出</a>
-            </li>
-          </ul>
-        </nz-dropdown>
+    <div class="head_top">
+      <h1>竞赛管理系统</h1>
+    </div>
+    <div class="head_top">
+      <nz-dropdown>
+        <button nz-button nz-dropdown>
+          <i class="anticon anticon-user"></i>
+          <i class="anticon anticon-down"></i>
+        </button>
+        <ul nz-menu>
+          <li nz-menu-item>
+            <a target="_blank" rel="noopener noreferrer" (click)="isVisible = true">
+              <i class="anticon anticon-tool" style="margin-right:10px"></i>修改密码</a>
+          </li>
+          <li nz-menu-item>
+            <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+              <i class="anticon anticon-logout" style="margin-right:10px"></i>退出</a>
+          </li>
+        </ul>
+      </nz-dropdown>
     </div>
   </nz-header>
   <nz-layout>
@@ -41,3 +43,25 @@
     </nz-layout>
   </nz-layout>
 </nz-layout>
+<nz-modal [nzVisible]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel($event)">
+  <ng-template #modalTitle>
+    修改密码
+  </ng-template>
+  <ng-template #modalContent>
+    <span>请输入原密码</span>
+    <nz-input [(ngModel)]="old_password" [nzSize]="'large'"></nz-input>
+    <span>请输入新密码</span>
+    <nz-input [(ngModel)]="new_pad" [nzSize]="'large'"></nz-input>
+    <span>请再次输入新密码</span> <span *ngIf='new_pad!=new_pad_again' style="color:red">两次输入密码不一致</span>
+    <nz-input [(ngModel)]="new_pad_again" [nzSize]="'large'"></nz-input>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="isVisible=false">
+      返 回
+    </button>
+<button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="updata(old_password,new_pad,new_pad_again)">
+      提 交
+    </button>
+  </ng-template>
+</nz-modal>
+

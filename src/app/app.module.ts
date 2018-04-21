@@ -1,3 +1,8 @@
+import { SearchSelectsComponent } from './common/search-selects/search-selects.component';
+import { SearchTextComponent } from './common/search-text/search-text.component';
+import { SearchSelectComponent } from './common/search-select/search-select.component';
+import { SearchDatesComponent } from './common/search-dates/search-dates.component';
+import { SearchComponent } from './common/search/search.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -10,7 +15,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { IndexComponent } from './common/index/index.component';
 import { MemberComponent } from './stu-manage/member/member.component';
 import { LoginComponent } from './login/login.component';
-import { ManagerComponent } from './user/manager/manager.component';
 import { SellerActComponent } from './data/seller-act/seller-act.component';
 import { SortComponent } from './common/sort/sort.component';
 import { EnlargeImgComponent } from './common/enlarge-img/enlarge-img.component';
@@ -24,6 +28,8 @@ import { EditComponent } from './contest/edit/edit.component';
 import { ContestListComponent } from './contest/contest-list/contest-list.component';
 import { ReviewComponent } from './process/review/review.component';
 import { HandErrorComponent } from './process/hand-error/hand-error.component';
+import { MemberMoreComponent } from './stu-manage/member-more/member-more.component';
+import { SearchDateComponent } from './common/search-date/search-date.component';
 
 @NgModule({
   declarations: [
@@ -31,9 +37,14 @@ import { HandErrorComponent } from './process/hand-error/hand-error.component';
     IndexComponent,
     MemberComponent,
     LoginComponent,
-    ManagerComponent,
     SellerActComponent,
     SortComponent,
+    SearchComponent,
+    SearchDateComponent,
+    SearchDatesComponent,
+    SearchSelectComponent,
+    SearchTextComponent,
+    SearchSelectsComponent,
     EnlargeImgComponent,
     BuyerActComponent,
     NoticeComponent,
@@ -43,6 +54,7 @@ import { HandErrorComponent } from './process/hand-error/hand-error.component';
     ContestListComponent,
     ReviewComponent,
     HandErrorComponent,
+    MemberMoreComponent,
   ],
   imports: [
     BrowserModule,

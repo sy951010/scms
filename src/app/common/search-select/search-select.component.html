@@ -1,0 +1,9 @@
+<!-- 下拉单选：需输入key && value（数组） -->
+<div class="needCount">
+    <span>{{value}}:</span>
+    <nz-select style="width:100%;" [(ngModel)]="selectedOption" (nzOpenChange)="lucky($event)" nzAllowClear>
+        <nz-option *ngFor="let option of list" [nzLabel]="option.value" [nzValue]="option"> 
+            <ng-template #nzOptionTemplate>{{option.value}}</ng-template>
+        </nz-option>
+    </nz-select>
+</div>

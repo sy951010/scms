@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AppComponent } from '../../app.component';
 declare var Mock: any;
-const TitleList = ['竞赛名称', '级别', '类型', '提交人', '提交时间', '状态', '修改人'];
+const TitleList = ['ID','竞赛名称', '级别', '提交人', '提交时间', '状态', '修改人'];
 
 @Component({
   selector: 'app-primit',
@@ -9,47 +9,43 @@ const TitleList = ['竞赛名称', '级别', '类型', '提交人', '提交时�
   styleUrls: ['./primit.component.less']
 })
 export class PrimitComponent implements OnInit {
-  public TitleList = TitleList;
-  public List=[];
-  public searchbox = false;
+  public TitleList = TitleList; // 标题列表
+  // public sortList = sortList;  // 用于排序的字段
+  // public searchList = searchList;  // 用于排序的字段 
+  public searchObj = {};
+  public memberList = [];  // 用户列表
+  public loading: boolean;  // 加载动画
+  public TotalRecordCount: number; // 数据总条目
+  public Sorting = 'app_id DESC' // 默认按id倒序
+  public all_user = {};
+  public searchbox = false; // 搜索弹框显示隐藏
   constructor(
+    @Inject('ApiService') private _api,
     private _app: AppComponent,
   ) { }
 
   ngOnInit() {
     this.getData();
-    console.log(this.List)
   }
   getData() {
-    let data = Mock.mock({
-      'array|10': [
-        {
-          'name|1': [
-            '英语四级',
-            '计算机二级',
-            '蓝桥杯',
-            '运动会',
-          ],
-          'jibie|1': [
-            '国家级',
-            '省级',
-            '校级',
-          ],
-          'type|1':[
-            '个人',
-            '团队',
-          ],
-          'peoplename|1': function () {
-            return Mock.mock('@name')
-          },
-          'time|10000-99999':1,
-          'status|1-3':1,
-          'changename|1': function () {
-            return Mock.mock('@name')
-          },
-        }
-      ]
+    this.loading = true;
+    this._api.applicationList(this.Sorting, this.searchObj).then(e => {
+      this.memberList = e.data;
+      this.all_user = e.all_user;
+      this.TotalRecordCount = this.memberList.length;
+      this.loading = false;
     })
-    this.List = data.array;
+  }
+  reload() {
+    this.searchObj = null;
+    this.getData();
+  }
+  returnSortChecked(e) {
+    this.Sorting = `${e.key} ${e.value == 0 ? 'ASC' : 'DESC'}`;
+    this.getData();
+  }
+  returnSearchChecked(e) {
+    this.searchObj = e;
+    this.getData();
   }
 }

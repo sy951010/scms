@@ -31,10 +31,28 @@ body {
 i{
     font-size: 16px;
 }
+.title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .button{
     display: flex;
     align-items: center;
     button{
         margin-right: 10px;
     }
+}
+.memberbox{
+    .ant-avatar-lg>i{
+        font-size: 40px;
+    }
+    #nopadding{
+        &>.ant-card-body{
+        padding: 0;
+        }
+    }
+}
+textarea{
+    width: 240px!important;
 }

@@ -1,0 +1,15 @@
+<div class="needCount">
+    <span>{{value}}：</span>
+    <nz-select style="width: 100%;"
+            [nzMode]="'multiple'"
+            [nzNotFoundContent]="'无法找到'"
+            (nzOpenChange)="lucky($event)"
+            [(ngModel)]="selectedOptions">
+        <nz-option
+            *ngFor="let option of list"
+            [nzLabel]="option.value"
+            [nzValue]="option"
+            [nzDisabled]="option.disabled">
+        </nz-option>
+    </nz-select>
+</div>
