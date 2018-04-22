@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { element } from 'protractor';
 import { AppComponent } from './../../app.component';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -21,6 +22,7 @@ export class ReviewComponent implements OnInit {
   constructor(
     @Inject('ApiService') private _api,
     private _app: AppComponent,
+    private _routeInfo:ActivatedRoute,
     private confirmServ: NzModalService,
     private _notification: NzNotificationService
   ) { }

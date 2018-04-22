@@ -50,6 +50,29 @@ export class ApiService {
             },
         );
     }
+    review(appid,status){
+        var url = 'http://localhost/scms/api/review.php';
+        return this.httpservice(url,
+            {
+                appid: appid,
+                status: status
+            },
+        );
+    }
+    aduited(teacher,user_id, appid,status,reason) {
+        var url = 'http://localhost/scms/api/audited.php';
+        let time = new Date().getTime()/1000;
+        return this.httpservice(url,
+            {
+                teacher: teacher,
+                user_id:user_id,
+                appid: appid,
+                status: status,
+                reason: reason,
+                time:time
+            },
+        );
+    }
     applicationList(sort: string, search: any) {
         var url = 'http://localhost/scms/api/applicationList.php';
         return this.httpservice(url, {
@@ -58,9 +81,19 @@ export class ApiService {
     }
     application(obj:any){
         var url = 'http://localhost/scms/api/application.php';
-        let user_id = window.localStorage.getItem('token')
-        obj['token'] = user_id       
+        let user_id = window.localStorage.getItem('token');
+        let time = new Date().getTime() / 1000;
+        obj['token'] = user_id;
+        obj['time'] = time       
         return this.httpservice(url, obj); 
+    }
+    errorList(sort: string, search: any) {
+        var url = 'http://localhost/scms/api/error.php';
+        return this.httpservice(url,
+            {
+                sort: sort,
+            }, search
+        );
     }
     contest(obj: any) {
         var url = 'http://localhost/scms/api/contest.php';
@@ -107,7 +140,7 @@ export class ApiService {
         return this.httpservice(url,{},obj
         );
     }
-    getenum(url: string) {
+    getenum() {
         var url = 'http://localhost/scms/base/global.php';
         return this.httpservice(url, {}, );
     }

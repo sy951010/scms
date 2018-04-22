@@ -1,23 +1,17 @@
-<nz-table class="table" #nzTable [nzShowTitle]="true" [nzTotal]="1000" [nzAjaxData]="List" [nzLoading]="loading" [nzScroll]="{ x: _app.x, y:_app.y }"
-  (nzPageIndexChange)="getData()">
+<nz-table class="table" #nzTable [nzShowTitle]="true" [nzTotal]="10" [nzAjaxData]="List" [nzLoading]="loading" [nzScroll]="{ x: _app.x, y:_app.y }">
   <span nz-table-title class="table-title">
     <nz-breadcrumb>
       <nz-breadcrumb-item>流程管理</nz-breadcrumb-item>
       <nz-breadcrumb-item>异常处理</nz-breadcrumb-item>
     </nz-breadcrumb>
     <div class="button">
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="getData()">
+      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="reload()">
         <i class="anticon anticon-sync"></i>
         <span>刷新当前页</span>
       </button>
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="search()">
-        <i class="anticon anticon-search"></i>
-        <span>搜索</span>
-      </button>
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'">
-        <i class="anticon anticon-download"></i>
-        <span>下载数据</span>
-      </button>
+        <span>
+          <app-search [list]="searchList" (commitResults)="returnSearchChecked($event)"></app-search>
+        </span>
       <span>
         <app-sort [sortList]="sortList" (selectedOption)="returnSortChecked($event)"></app-sort>
       </span>
@@ -34,57 +28,11 @@
   </ng-template>
   <tbody nz-tbody>
     <tr nz-tbody-tr *ngFor="let i of nzTable.data">
-      <td nz-td>
-        <p class="click">{{i.name}}</p>
-      </td>
-      <td nz-td>{{i.jibie}}</td>
-      <td nz-td>{{i.type}}</td>
-      <!-- <td nz-td>{{i.user_last_login*1000|date:'yyy-MM-dd HH:mm:ss'}}</td> -->
-      <td nz-td>{{i.peoplename}}</td>
-      <td nz-td>{{i.time}}</td>
-      <td nz-td>{{i.status}}</td>
-      <td nz-td>{{i.changename}}</td>
+      <td nz-td><span class="click"  [routerLink]="['/index/primit']" [queryParams] ="{appli_id:i.appli_id}" >{{i.appli_id}}</span></td>
+      <td nz-td>{{all_user[i.user_id]}}</td>
+      <td nz-td>{{all_user[i.teachId]}}</td>
+      <td nz-td>{{i.op_time*1000|date:'yyy-MM-dd HH:mm:ss'}}</td>
+      <td nz-td>{{i.error_des}}</td>
     </tr>
   </tbody>
 </nz-table>
-<!-- 搜索弹框 -->
-<nz-modal [nzVisible]="searchbox" [nzTitle]="'搜索内容'" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)" (nzOnOk)="handleOk($event)">
-  <ng-template #modalContent>
-    <div nz-row [nzType]="'flex'" [nzJustify]="'space-between'">
-      <div nz-col [nzSpan]="9" [nzPush]="1">
-        <div nz-row [nzGutter]="12">
-          <h3>用户ID</h3>
-          <nz-input [(ngModel)]="uid"></nz-input>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>来源</h3>
-          <nz-select style="width:100%" [(ngModel)]="source" [nzPlaceHolder]="'选择用户来源'" nzAllowClear>
-            <nz-option *ngFor="let option of sourceOption" [nzLabel]="option" [nzValue]="option">
-            </nz-option>
-          </nz-select>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>创建时间</h3>
-          <nz-rangepicker [(ngModel)]="creat" nzShowTime [nzFormat]="'YYYY-MM-DD HH:mm:ss'"></nz-rangepicker>
-        </div>
-      </div>
-      <div nz-col [nzSpan]="9" [nzPull]="1">
-        <div nz-row [nzGutter]="12">
-          <h3>手机</h3>
-          <nz-input [(ngModel)]=tel></nz-input>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>平台</h3>
-          <nz-select style="width:100%" [(ngModel)]="platform" [nzPlaceHolder]="'选择用户平台'" nzAllowClear>
-            <nz-option *ngFor="let option of platformOption" [nzLabel]="option" [nzValue]="option">
-            </nz-option>
-          </nz-select>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>登陆时间</h3>
-          <nz-rangepicker [(ngModel)]="login" nzShowTime [nzFormat]="'YYYY-MM-DD HH:mm:ss'"></nz-rangepicker>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</nz-modal>

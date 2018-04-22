@@ -1,14 +1,13 @@
 <nz-table class="table" #nzTable 
 [nzShowTitle]="true" [nzTotal]="TotalRecordCount" [nzDataSource]="memberList" [nzLoading]="loading" [nzScroll]="{ x: _app.x,
-y:_app.y }"
-  (nzPageIndexChange)="getData()">
+y:_app.y }">
   <span nz-table-title class="table-title">
     <nz-breadcrumb>
       <nz-breadcrumb-item>流程管理</nz-breadcrumb-item>
       <nz-breadcrumb-item>待审批</nz-breadcrumb-item>
     </nz-breadcrumb>
     <div class="button">
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="getData()">
+      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="reload()">
         <i class="anticon anticon-sync"></i>
         <span>刷新当前页</span>
       </button>
@@ -16,18 +15,17 @@ y:_app.y }"
         <i class="anticon anticon-plus"></i>
         <span>发起审批</span>
       </button>
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="search()">
+      <button *ngIf="_api.check().auth==1" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="teacher()">
         <i class="anticon anticon-search"></i>
         <span>向我提交的</span>
       </button>
-      <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="search()">
-        <i class="anticon anticon-search"></i>
-        <span>搜索</span>
-      </button>
-      <button *ngIf="_api.check().auth==1" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="export()">
+      <span>
+        <app-search [list]="searchList" (commitResults)="returnSearchChecked($event)"></app-search>
+      </span>
+      <!-- <button *ngIf="_api.check().auth==1" nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="export()">
         <i class="anticon anticon-download"></i>
         <span>下载数据</span>
-      </button>
+      </button> -->
       <span>
         <app-sort [sortList]="sortList" (selectedOption)="returnSortChecked($event)"></app-sort>
       </span>
@@ -39,62 +37,37 @@ y:_app.y }"
         <th nz-th *ngFor="let item of TitleList">
           <span>{{item}}</span>
         </th>
+        <th nz-th style="flex-basis: 16%" *ngIf="_api.check().auth==1">
+          <span>操作</span>
+        </th>        
       </tr>
     </thead>
   </ng-template>
   <tbody nz-tbody>
     <tr nz-tbody-tr *ngFor="let i of nzTable.data">
       <td nz-td>
-        <p class="click">{{i.app_id}}</p>
+        <p >{{i.app_id}}</p>
       </td>
-      <td nz-td>{{i.name}}</td>
-      <td nz-td>{{i.item_name}}</td>
+      <td nz-td>{{all_game[i.game_name]}}</td>
+      <td nz-td>{{getItem(i.game_name,i.item_name)}}</td>
       <!-- <td nz-td>{{i.user_last_login*1000|date:'yyy-MM-dd HH:mm:ss'}}</td> -->
       <td nz-td>{{all_user[i.user_id]}}</td>
-      <td nz-td>{{i.id}}</td>
-      <td nz-td>待审核</td>
-      <td nz-td>{{i.update_name}}</td>
+      <td nz-td>{{i.time*1000|date:'yyy-MM-dd HH:mm:ss'}}</td>
+      <td nz-td>{{i.status==0?'未审核':(i.status==1?'已通过':'未通过')}}</td>
+      <td nz-td>{{all_user[i.teacher]}}</td>
+      <td nz-td *ngIf="_api.check().auth==1" style="flex-basis: 16%">
+        <button *ngIf="i.status==0" style="margin-right:6px" nz-button (click)="primt(i,1)" [nzType]="'primary'" >通过</button>
+        <button *ngIf="i.status==0" nz-button (click)="reject(i)" [nzType]="'danger'" >拒绝</button>
+        <button *ngIf="i.status!=0"  nz-button disabled [nzType]="'default'">已操作</button>
+      </td>
+      
     </tr>
   </tbody>
 </nz-table>
 <!-- 搜索弹框 -->
-<nz-modal [nzVisible]="searchbox" [nzTitle]="'搜索内容'" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)" (nzOnOk)="handleOk($event)">
+<nz-modal [nzVisible]="searchbox" [nzTitle]="'拒绝原因'" [nzContent]="modalContent" (nzOnCancel)="searchbox = false" (nzOnOk)="handleOk(reason)">
   <ng-template #modalContent>
-    <div nz-row [nzType]="'flex'" [nzJustify]="'space-between'">
-      <div nz-col [nzSpan]="9" [nzPush]="1">
-        <div nz-row [nzGutter]="12">
-          <h3>用户ID</h3>
-          <nz-input [(ngModel)]="uid"></nz-input>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>来源</h3>
-          <nz-select style="width:100%" [(ngModel)]="source" [nzPlaceHolder]="'选择用户来源'" nzAllowClear>
-            <nz-option *ngFor="let option of sourceOption" [nzLabel]="option" [nzValue]="option">
-            </nz-option>
-          </nz-select>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>创建时间</h3>
-          <nz-rangepicker [(ngModel)]="creat" nzShowTime [nzFormat]="'YYYY-MM-DD HH:mm:ss'"></nz-rangepicker>
-        </div>
-      </div>
-      <div nz-col [nzSpan]="9" [nzPull]="1">
-        <div nz-row [nzGutter]="12">
-          <h3>手机</h3>
-          <nz-input [(ngModel)]=tel></nz-input>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>平台</h3>
-          <nz-select style="width:100%" [(ngModel)]="platform" [nzPlaceHolder]="'选择用户平台'" nzAllowClear>
-            <nz-option *ngFor="let option of platformOption" [nzLabel]="option" [nzValue]="option">
-            </nz-option>
-          </nz-select>
-        </div>
-        <div nz-row [nzGutter]="12">
-          <h3>登陆时间</h3>
-          <nz-rangepicker [(ngModel)]="login" nzShowTime [nzFormat]="'YYYY-MM-DD HH:mm:ss'"></nz-rangepicker>
-        </div>
-      </div>
-    </div>
+    <p>拒绝原因</p>
+    <nz-input style="width:100%" [(ngModel)]="reason"></nz-input>
   </ng-template>
 </nz-modal>

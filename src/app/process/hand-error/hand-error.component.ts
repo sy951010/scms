@@ -1,7 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AppComponent } from '../../app.component';
-declare var Mock: any;
-const TitleList = ['竞赛名称', '级别', '类型', '提交人', '提交时间', '状态', '修改人'];
+import { NzNotificationService } from 'ng-zorro-antd';
+const TitleList = ['ID', '提交人', '审批人', '批改时间', '拒绝原因'];
+const sortList = [
+  { label: '提交时间', value: 'op_time' },
+]
+const searchList = {
+  kind: 1, // 搜索
+  list: [
+    { type: 0, value: { key: 'user_id', name: '提交人姓名' } },
+    { type: 0, value: { key: 'teachId', name: '审批人姓名' } },
+  ]
+};
 @Component({
   selector: 'app-hand-error',
   templateUrl: './hand-error.component.html',
@@ -9,45 +19,50 @@ const TitleList = ['竞赛名称', '级别', '类型', '提交人', '提交时�
 })
 export class HandErrorComponent implements OnInit {
   public TitleList = TitleList;
+  public loading = false;
   public List = [];
-  public searchbox = false;
+  public sortList = sortList;  // 用于排序的字段
+  public searchList = searchList;  // 用于排序的字段 
+  public sortString = 'review_id ASC';
+  public searchObj={};
+  public all_user = {};
   constructor(
-    private _app: AppComponent,    
+    @Inject('ApiService') private _api,
+    private _app: AppComponent,
+    private _notification: NzNotificationService   
   ) { }
 
   ngOnInit() {
+    this.searchObj['status'] = -1;
     this.getData();
   }
   getData() {
-    let data = Mock.mock({
-      'array|10': [
-        {
-          'name|1': [
-            '英语四级',
-            '计算机二级',
-            '蓝桥杯',
-            '运动会',
-          ],
-          'jibie|1': [
-            '国家级',
-            '省级',
-            '校级',
-          ],
-          'type|1': [
-            '个人',
-            '团队',
-          ],
-          'peoplename|1': function () {
-            return Mock.mock('@name')
-          },
-          'time|10000-99999': 1,
-          'status|1-3': 1,
-          'changename|1': function () {
-            return Mock.mock('@name')
-          },
-        }
-      ]
+    this.loading = true;
+    this._api.errorList(this.sortString,this.searchObj).then(e=>{
+      this.all_user = e.all_user;
+      this.List = e.data;
+      this.loading = false;
     })
-    this.List = data.array;
+  }
+  reload(){
+    this.searchObj = {};
+    this.searchObj['status'] =-1;
+    this.getData();
+  }
+  returnSortChecked(e) {
+    this.sortString = `${e.key} ${e.value == 0 ? 'ASC' : 'DESC'}`;
+    this.getData();
+  }
+  returnSearchChecked(e) {
+    this.searchObj['user_id'] = e['user_id'] ? this.dataTran(e['user_id'], this.all_user) : null;
+    this.searchObj['teachId'] = e['teachId'] ? this.dataTran(e['teachId'], this.all_user) : null;
+    this.getData();
+  }
+  dataTran(str, Obj) {
+    for (const key in Obj) {
+      if (Obj[key] == str) {
+        return key;
+      }
+    }
   }
 }

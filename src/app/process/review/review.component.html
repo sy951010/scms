@@ -51,7 +51,7 @@
     <div nz-row style="margin-top:16px">
       <div class="item" nz-col [nzSpan]="10" [nzOffset]="7">
         <span>指导老师</span>
-        <nz-select style="width:240px" [(ngModel)]="obj['teacher']" [nzMode]="'multiple'">
+        <nz-select style="width:240px" [(ngModel)]="obj['teacher']">
           <nz-option [nzLabel]="'无'" [nzValue]="-1"></nz-option>
           <nz-option *ngFor="let item of teaList" [nzLabel]="item.name" [nzValue]="item.account_id">
           </nz-option>
