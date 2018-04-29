@@ -4,10 +4,10 @@
       <nz-breadcrumb>
         <nz-breadcrumb-item>竞赛管理</nz-breadcrumb-item>
         <nz-breadcrumb-item>竞赛详情</nz-breadcrumb-item>
-        <nz-breadcrumb-item>No.{{Info?.id}}</nz-breadcrumb-item>
+        <nz-breadcrumb-item>No.{{id}}</nz-breadcrumb-item>
       </nz-breadcrumb>
       <div class="button">
-        <button nz-button *ngIf="_api.check().auth==1" [nzType]="'primary'" [nzSize]="'large'">修改竞赛信息</button>
+        <button nz-button (click) = "box = true" *ngIf="_api.check().auth==1" [nzType]="'primary'" [nzSize]="'large'">修改竞赛信息</button>
       </div>
     </div>
   </ng-template>
@@ -84,3 +84,17 @@
     </nz-tabset>
   </ng-template>
 </nz-card>
+
+<nz-modal [nzVisible]="box" [nzTitle]="'修改'" [nzContent]="sortModalContent" (nzOnOk)="update()"
+  (nzOnCancel)="box = false">
+  <ng-template #sortModalContent>
+    <div>
+      <span>状态：</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <nz-switch [(ngModel)]="Info['status']"></nz-switch>
+    </div>
+    <div>
+      <span>截止日期：</span>
+      <nz-datepicker [(ngModel)]="Info['end_time']" [nzDisabled]="!Info['status']" [nzPlaceHolder]="'Select date'"></nz-datepicker>
+    </div>
+  </ng-template>
+</nz-modal>

@@ -129,4 +129,7 @@ export class IndexComponent implements OnInit {
             }
         })
     }
+    out(){
+        this._route.navigate(['/'])
+    }
 }

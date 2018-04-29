@@ -115,6 +115,17 @@ export class ApiService {
             },
         );
     }
+    contestUpdate(id, status, name,){
+        var url = 'http://localhost/scms/api/contestUpdate.php';
+        // let time = new Date().getTime() / 1000;
+        return this.httpservice(url,
+            {
+                contest_id: id,
+                status: status,
+                update_name:name
+            },
+        );
+    }
     memberList(sort: string, search: any) {
         var url = 'http://localhost/scms/api/memberList.php';
         return this.httpservice(url,

@@ -19,7 +19,7 @@ export class SellerActComponent implements OnInit {
     // 绘制图表
     myChart.setOption({
         title: {
-          text: '近七年竞赛成绩趋势'
+          text: '近七年竞赛成绩人数'
         },
         tooltip: {
           trigger: 'axis'

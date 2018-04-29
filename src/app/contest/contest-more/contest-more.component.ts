@@ -25,7 +25,7 @@ export class ContestMoreComponent implements OnInit {
   public searchObj = {};
   public memberList = [];  // 用户列表
   public loading: boolean;  // 加载动画
-  public TotalRecordCount: number; // 数据总条目
+  public TotalRecordCount; // 数据总条目
   public Sorting = 'contest_id DESC' // 默认按id倒序
   public enum={};
   constructor(
@@ -45,8 +45,8 @@ export class ContestMoreComponent implements OnInit {
     this._api.contestList(this.Sorting, this.searchObj).then(e => {
       this.memberList = e.data;
       this.TotalRecordCount = this.memberList.length;
+      this.loading = false;
     })
-    this.loading = false;
   }
   reload() {
     this.searchObj = null;
